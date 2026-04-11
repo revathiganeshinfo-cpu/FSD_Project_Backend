@@ -30,8 +30,8 @@ export const createCheckoutSession = async (req, res) => {
 
       mode: "payment",
 
-  success_url: `https://fsd-project-frontend.vercel.app/success?reservationId=${reservationId}`,
-  cancel_url: "https://fsd-project-frontend.vercel.app/cancel",
+success_url: `https://fsd-project-frontend.vercel.app/success?reservationId=${reservationId}`,
+    cancel_url: "https://fsd-project-frontend.vercel.app/cancel",
     });
 
     res.json({
