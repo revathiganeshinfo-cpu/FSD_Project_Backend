@@ -235,13 +235,24 @@ export const markAsPaid = async (req, res) => {
     const remaining = total - paid;
 
     if (remaining <= 0) {
-      return res.json({ message: "Already paid" });
+      reservation.status = "paid"; // ensure status correct
+      await reservation.save();
+
+      return res.json({
+        success: true,
+        message: "Already fully paid",
+        reservation
+      });
     }
 
+    // update payment
     reservation.paidAmount = paid + remaining;
 
+    // FORCE status update (important fix)
     if (reservation.paidAmount >= total) {
       reservation.status = "paid";
+    } else {
+      reservation.status = "pending";
     }
 
     await reservation.save();
