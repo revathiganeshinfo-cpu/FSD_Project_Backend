@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 router.post("/checkout", async (req, res) => {
   try {
-    const { restaurantName, price } = req.body;
+    const { restaurantName, price, reservationId } = req.body;
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -14,21 +14,18 @@ router.post("/checkout", async (req, res) => {
         {
           price_data: {
             currency: "inr",
-            product_data: {
-              name: restaurantName,
-            },
+            product_data: { name: restaurantName },
             unit_amount: price * 100,
           },
           quantity: 1,
         },
       ],
       mode: "payment",
-     success_url: "https://fsd-project-frontend.vercel.app/success",
-cancel_url: "https://fsd-project-frontend.vercel.app/",
+      success_url: `https://fsd-project-frontend.vercel.app/success?reservationId=${reservationId}`,
+      cancel_url: "https://fsd-project-frontend.vercel.app/",
     });
 
     res.json({ url: session.url });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
