@@ -23,8 +23,8 @@ router.post("/checkout", async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: "http://localhost:5173/success",
-      cancel_url: "http://localhost:5173/cancel",
+     success_url: "https://fsd-project-frontend.vercel.app/success",
+cancel_url: "https://fsd-project-frontend.vercel.app/",
     });
 
     res.json({ url: session.url });
