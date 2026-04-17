@@ -32,7 +32,7 @@ app.use("/api/reservations",reservationRoutes)
 app.use("/api/reviews",reviewRoutes)
 app.use("/api/stripe",stripeRoutes)
 app.use("/api/admin",adminRoutes)
-app.use("/api",reservationRoutes) 
+
 
 const PORT = process.env.PORT || 5000
 
