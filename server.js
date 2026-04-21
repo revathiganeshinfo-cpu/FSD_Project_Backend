@@ -15,7 +15,7 @@
 
   dotenv.config();
 
-  connectDB();
+  connectDB();  
 
   const app = express();
 
@@ -24,7 +24,6 @@
     credentials: true
   }));
   app.use(express.json());
-  
   app.use("/api/auth", authRoutes);
   app.use("/api/restaurants", restaurantRoutes);
   app.use("/api/reservations", reservationRoutes);

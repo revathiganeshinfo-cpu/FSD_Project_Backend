@@ -11,7 +11,15 @@ import {
 
 const router = express.Router();
 
-router.post("/", authMiddleware, createReservation);
+router.post("/", authMiddleware, (req, res, next) => {
+  if (req.user.role === "admin") {
+    return res.status(403).json({
+      success: false,
+      message: "Admins cannot create reservations"
+    });
+  }
+  next();
+}, createReservation);
 router.get("/my", authMiddleware, getUserReservations);
 
 router.get("/check", checkAvailability);
